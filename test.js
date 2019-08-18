@@ -1,7 +1,8 @@
 const { expect } = require("chai");
-const { post } = require("@roof/request");
+const { post } = require("@sustainer-network/request");
 
-const address = "https://TODO=<some-command>.command.staging.roof.io/v1/issue";
+const address =
+  "https://TODO=<some-command>.command.staging.sustainable.network/v1/issue";
 describe("TODO=<change this name, like `Change account email command`>", () => {
   it("should return successfully", async () => {
     const response = await post(address, {
