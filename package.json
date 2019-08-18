@@ -1,16 +1,16 @@
 {
-  "name": "@roof/TODO=<some-command>-command-handler-function",
+  "name": "@sustainer-network/TODO=<some-command>-command-handler-function",
   "version": "0.0.0",
   "dependencies": {
-    "@roof/TODO=<some-command>-command-handler": "*",
-    "@roof/errors": "*"
+    "@sustainer-network/TODO=<some-command>-command-handler": "*",
+    "@sustainer-network/errors": "*"
   },
   "scripts": {
     "precommit": "lint-staged",
     "test": "mocha --recursive  --timeout 5000"
   },
   "devDependencies": {
-    "@roof/request": "*",
+    "@sustainer-network/request": "*",
     "mocha": "^6.1.4",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
