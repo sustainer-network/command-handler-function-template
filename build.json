@@ -17,7 +17,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud functions deploy ${_SERVICE}-${_DOMAIN}-staging-${_ACTION} --trigger-http --runtime=nodejs10 --entry-point=http --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=NODE_ENV=staging"
+        "gcloud functions deploy ${_SERVICE}-${_DOMAIN}-staging-${_TYPE}-${_ACTION} --trigger-http --runtime=nodejs10 --entry-point=http --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=NODE_ENV=staging"
       ]
     },
     {
@@ -25,7 +25,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run deploy ${_SERVICE}-${_DOMAIN}-staging-${_TYPE}-${_ACTION} --image=gcr.io/endpoints-release/endpoints-runtime-serverless:1.36.0 --allow-unauthenticated --project=${_GCP_PROJECT} --region=${_GCP_REGION} --platform=managed "
+        "gcloud beta run deploy ${_SERVICE}-${_DOMAIN}-staging-${_TYPE}-${_ACTION} --image=gcr.io/endpoints-release/endpoints-runtime-serverless:1.36.0 --allow-unauthenticated --project=${_GCP_PROJECT} --region=${_GCP_REGION} --platform=managed"
       ]
     },
     {
@@ -65,7 +65,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "sed -e 's/#_NAME/${_SERVICE}-${_DOMAIN}-staging-${_ACTION}/g; s/#_HOST/${_ACTION}.${_TYPE}.staging.${_DOMAIN}.${_SERVICE_DOMAIN}/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/Staging ${_TITLE}/g' doc.json > doc.staging.json"
+        "sed -e 's/#_NAME/${_SERVICE}-${_DOMAIN}-staging-${_TYPE}-${_ACTION}/g; s/#_HOST/${_ACTION}.${_TYPE}.staging.${_DOMAIN}.${_SERVICE_DOMAIN}/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/Staging ${_TITLE}/g' doc.json > doc.staging.json"
       ]
     },
     {
@@ -89,7 +89,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta functions add-iam-policy-binding ${_SERVICE}-${_DOMAIN}-staging-${_ACTION} --member serviceAccount:31066734336-compute@developer.gserviceaccount.com --role roles/cloudfunctions.invoker"
+        "gcloud beta functions add-iam-policy-binding ${_SERVICE}-${_DOMAIN}-staging-${_TYPE}-${_ACTION} --member serviceAccount:31066734336-compute@developer.gserviceaccount.com --role roles/cloudfunctions.invoker"
       ]
     },
     {
@@ -107,7 +107,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud functions deploy ${_SERVICE}-${_DOMAIN}-${_ACTION} --trigger-http --runtime=nodejs10 --entry-point=http --set-env-vars=NODE_ENV=production"
+        "gcloud functions deploy ${_SERVICE}-${_DOMAIN}-${_TYPE}-${_ACTION} --trigger-http --runtime=nodejs10 --entry-point=http --set-env-vars=NODE_ENV=production"
       ]
     },
     {
@@ -155,7 +155,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "sed -e 's/#_NAME/${_SERVICE}-${_DOMAIN}-${_ACTION}/g; s/#_HOST/${_ACTION}.${_TYPE}.${_DOMAIN}.${_SERVICE_DOMAIN}/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/${_TITLE}/g' doc.json > doc.production.json"
+        "sed -e 's/#_NAME/${_SERVICE}-${_DOMAIN}-${_TYPE}-${_ACTION}/g; s/#_HOST/${_ACTION}.${_TYPE}.${_DOMAIN}.${_SERVICE_DOMAIN}/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/${_TITLE}/g' doc.json > doc.production.json"
       ]
     },
     {
@@ -179,7 +179,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta functions add-iam-policy-binding ${_SERVICE}-${_DOMAIN}-${_ACTION} --member serviceAccount:31066734336-compute@developer.gserviceaccount.com --role roles/cloudfunctions.invoker --project=${_GCP_PROJECT} --region=${_GCP_REGION}"
+        "gcloud beta functions add-iam-policy-binding ${_SERVICE}-${_DOMAIN}-${_TYPE}-${_ACTION} --member serviceAccount:31066734336-compute@developer.gserviceaccount.com --role roles/cloudfunctions.invoker --project=${_GCP_PROJECT} --region=${_GCP_REGION}"
       ]
     }
   ]
