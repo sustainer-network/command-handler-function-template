@@ -9,7 +9,7 @@
     "_GCP_REGION": "us-central1",
     "_GCP_DNS_ZONE": "network",
     "_TYPE": "command",
-    "_CORS_ALLOW_HEADERS": "Authorization Content-Type"
+    "_ESP_OPTIONS": "--cors_preset=basic,--cors_allow_methods=POST,--cors_allow_headers=Authorization Content-Type,--cors_allow_credentials,"
   },
   "steps": [
     {
@@ -81,7 +81,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run services update ${_SERVICE}-${_DOMAIN}-staging-${_TYPE}-${_ACTION} --platform=managed --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_TYPE}.staging.${_DOMAIN}.${_SERVICE_DOMAIN}|ESP_ARGS=--rollout_strategy=managed,--cors_preset=basic,--cors_allow_credentials,--cors_allow_methods=POST,--cors_allow_headers=${_CORS_ALLOW_HEADERS}\""
+        "gcloud beta run services update ${_SERVICE}-${_DOMAIN}-staging-${_TYPE}-${_ACTION} --platform=managed --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_TYPE}.staging.${_DOMAIN}.${_SERVICE_DOMAIN}|ESP_ARGS=--rollout_strategy=managed,${_ESP_OPTIONS}\""
       ]
     },
     {
@@ -171,7 +171,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run services update ${_SERVICE}-${_DOMAIN}-${_TYPE}-${_ACTION} --platform=managed  --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_TYPE}.${_DOMAIN}.${_SERVICE_DOMAIN}|ESP_ARGS=--rollout_strategy=managed,--cors_preset=basic,--cors_allow_credentials,--cors_allow_methods=POST,--cors_allow_headers=${_CORS_ALLOW_HEADERS}\""
+        "gcloud beta run services update ${_SERVICE}-${_DOMAIN}-${_TYPE}-${_ACTION} --platform=managed  --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_TYPE}.${_DOMAIN}.${_SERVICE_DOMAIN}|ESP_ARGS=--rollout_strategy=managed,${_ESP_OPTIONS}\""
       ]
     },
     {
