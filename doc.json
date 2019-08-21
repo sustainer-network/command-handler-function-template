@@ -28,45 +28,38 @@
                   },
                   "required": ["ip", "id"]
                 },
-                "data": {
+                "traceId": {
+                  "description": "An identification string to match against views created in reaction to the command.",
+                  "type": "string"
+                },
+                "issuedTimestamp": {
+                  "description": "The timestamp the command was issued on.",
+                  "type": "integer"
+                },
+                "payload": {
+                  "description": "The command's payload.",
                   "type": "object",
-                  "description": "The data to associate with the command.",
                   "properties": {
-                    "traceId": {
-                      "description": "An identification string to match against views created in reaction to the command.",
-                      "type": "string"
-                    },
-                    "issuedTimestamp": {
-                      "description": "The timestamp the command was issued on.",
-                      "type": "integer"
-                    },
-                    "payload": {
-                      "description": "The command's payload.",
-                      "type": "object",
-                      "properties": {
-                        "some-key": "TODO=<Describe the payload's expected values here following these guidelines --> https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject>"
-                      }
-                    }
-                  },
-                  "required": ["issuedTimestamp", "payload"]
+                    "some-key": "TODO=<Describe the payload's expected values here following these guidelines --> https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject>"
+                  }
                 }
               },
-              "required": ["data", "clientInfo"],
+              "required": [
+                "payload",
+                "issuedTimestamp",
+                "traceId",
+                "clientInfo"
+              ],
               "example": {
-                "commands": [
-                  {
-                    "name": "`create-expense`",
-                    "data": {
-                      "traceId": "aUniqueId1234",
-                      "issuedTimestamp": 1563668435000,
-                      "payload": { "someProperty": "someValue" }
-                    }
-                  }
-                ],
                 "clientInfo": {
                   "ip": "0.0.0.0",
                   "id": "nc198234r57"
-                }
+                },
+                "issuedTimestamp": 123,
+                "payload": {
+                  "TODO": "<Change this example>"
+                },
+                "traceId": "asdf123"
               },
               "type": "object"
             },
