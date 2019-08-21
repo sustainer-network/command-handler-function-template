@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { post } = require("@sustainer-network/request");
 
 const address =
-  "https://TODO=<some-command>.TODO=<some-store>.sustainable.network/v1/issue";
+  "https://TODO=<some-command>.TODO=<some-store>.sustainer.network/v1/issue";
 describe("TODO=<change this name, like `Change account email command`>", () => {
   it("should return successfully", async () => {
     const response = await post(address, {
