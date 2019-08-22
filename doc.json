@@ -44,12 +44,7 @@
                   }
                 }
               },
-              "required": [
-                "payload",
-                "issuedTimestamp",
-                "traceId",
-                "clientInfo"
-              ],
+              "required": ["payload", "issuedTimestamp", "traceId", "account"],
               "example": {
                 "clientInfo": {
                   "ip": "0.0.0.0",
