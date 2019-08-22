@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "dependencies": {
     "@sustainer-network/TODO=<some-command>-command-handler": "*",
-    "@sustainer-network/token-from-req": "*",
+    "@sustainer-network/tokens-from-req": "*",
     "@sustainer-network/errors": "*"
   },
   "scripts": {
-    "precommit": "lint-staged",
+    "precommit": "lint-staged && yarn checkbuild",
     "test": "mocha --recursive  --timeout 10000",
     "checkbuild": "./.checkbuild.sh"
   },
