@@ -1,5 +1,5 @@
 const address =
-  "https://TODO=<some-command>.TODO=<some-store>.sustainer.network/v1/issue";
+  "https://TODO=<some-action>.TODO=<some-store>.core.staging.sustainer.network/v1/issue";
 
 describe("TODO=<change this name, like `Change account email command`>", () => {
   it("should return successfully", async () => {
