@@ -5,7 +5,6 @@
     "@sustainer-network/TODO=<some-command>-command-handler": "*",
     "@sustainer-network/tokens-from-req": "*",
     "@sustainer-network/event-store-js": "*",
-    "@sustainer-network/event-bus": "*",
     "@sustainer-network/errors": "*"
   },
   "scripts": {
@@ -15,6 +14,7 @@
   },
   "devDependencies": {
     "@sustainer-network/request": "*",
+    "@sustainer-network/datetime": "*",
     "mocha": "^6.1.4",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",

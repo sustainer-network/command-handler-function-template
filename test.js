@@ -1,3 +1,4 @@
+const { fineTimestamp } = require("@sustainer-network/datetime");
 const address =
   "https://TODO=<some-action>.TODO=<some-store>.core.staging.sustainer.network/v1/issue";
 
@@ -17,7 +18,7 @@ describe("TODO=<change this name, like `Change account email command`>", () => {
           }
         ]
       },
-      issuedTimestamp: 123,
+      issuedTimestamp: fineTimestamp(),
       issuerInfo: {
         id: "asdf",
         ip: "asdf"
