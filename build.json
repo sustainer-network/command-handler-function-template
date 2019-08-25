@@ -3,7 +3,8 @@
     "_TITLE": "[TODO=<Title case descriptor for documentation, like Change Account Email>]",
     "_ACTION": "[TODO=<hyphen-seperated-action>, like change-email>]",
     "_DOMAIN": "[TODO=<hyphen-seperated-unique-domain, like account or service-request>]",
-    "_SERVICE": "core",
+    "_SERVICE": "[TODO=<hyphen-seperated-unique-service, like roof or core>]",
+    "_NETWORK": "sustainer.network",
     "_GCP_PROJECT": "sustainernetwork",
     "_GCP_REGION": "us-central1",
     "_GCP_DNS_ZONE": "network",
@@ -17,7 +18,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud functions deploy staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --trigger-http --memory=${_MEMORY} --runtime=nodejs10 --entry-point=command --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=NODE_ENV=staging"
+        "gcloud functions deploy staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --trigger-http --memory=${_MEMORY} --runtime=nodejs10 --entry-point=command --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=NODE_ENV=staging,NETWORK=${_NETWORK}"
       ]
     },
     {
@@ -41,7 +42,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta dns record-sets transaction add ghs.googlehosted.com. --name=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.sustainer.network --zone=${_GCP_DNS_ZONE} --type=CNAME --ttl=300 --project=${_GCP_PROJECT}"
+        "gcloud beta dns record-sets transaction add ghs.googlehosted.com. --name=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.${_NETWORK} --zone=${_GCP_DNS_ZONE} --type=CNAME --ttl=300 --project=${_GCP_PROJECT}"
       ]
     },
     {
@@ -65,7 +66,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run domain-mappings create --platform=managed --service=staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.sustainer.network --project=${_GCP_PROJECT} --region=${_GCP_REGION} || exit 0"
+        "gcloud beta run domain-mappings create --platform=managed --service=staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.${_NETWORK} --project=${_GCP_PROJECT} --region=${_GCP_REGION} || exit 0"
       ]
     },
     {
@@ -73,7 +74,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "sed -e 's/#_NAME/staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE}/g; s/#_HOST/${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.sustainer.network/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/Staging ${_TITLE}/g' doc.json > doc.staging.json"
+        "sed -e 's/#_NAME/staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE}/g; s/#_HOST/${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.${_NETWORK}/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/Staging ${_TITLE}/g' doc.json > doc.staging.json"
       ]
     },
     {
@@ -89,7 +90,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run services update staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --platform=managed --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.sustainer.network|ESP_ARGS=--rollout_strategy=managed,${_ESP_OPTIONS}\""
+        "gcloud beta run services update staging-${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --platform=managed --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.${_NETWORK}|ESP_ARGS=--rollout_strategy=managed,${_ESP_OPTIONS}\""
       ]
     },
     {
@@ -123,7 +124,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud functions deploy ${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --trigger-http --memory=${_MEMORY} --runtime=nodejs10 --entry-point=command --set-env-vars=NODE_ENV=production"
+        "gcloud functions deploy ${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --trigger-http --memory=${_MEMORY} --runtime=nodejs10 --entry-point=command --set-env-vars=NODE_ENV=production,NETWORK=${_NETWORK}"
       ]
     },
     {
@@ -147,7 +148,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta dns record-sets transaction add ghs.googlehosted.com. --name=${_ACTION}.${_DOMAIN}.${_SERVICE}.sustainer.network --zone=${_GCP_DNS_ZONE} --type=CNAME --ttl=300 --project=${_GCP_PROJECT}"
+        "gcloud beta dns record-sets transaction add ghs.googlehosted.com. --name=${_ACTION}.${_DOMAIN}.${_SERVICE}.${_NETWORK} --zone=${_GCP_DNS_ZONE} --type=CNAME --ttl=300 --project=${_GCP_PROJECT}"
       ]
     },
     {
@@ -171,7 +172,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run domain-mappings create --platform=managed --service=${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.sustainer.network --project=${_GCP_PROJECT} --region=${_GCP_REGION} || exit 0"
+        "gcloud beta run domain-mappings create --platform=managed --service=${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.${_NETWORK} --project=${_GCP_PROJECT} --region=${_GCP_REGION} || exit 0"
       ]
     },
     {
@@ -179,7 +180,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "sed -e 's/#_NAME/${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE}/g; s/#_HOST/${_ACTION}.${_DOMAIN}.${_SERVICE}.sustainer.network/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/${_TITLE}/g' doc.json > doc.production.json"
+        "sed -e 's/#_NAME/${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE}/g; s/#_HOST/${_ACTION}.${_DOMAIN}.${_SERVICE}.${_NETWORK}/g; s/#_GCP_PROJECT/${_GCP_PROJECT}/g; s/#_GCP_REGION/${_GCP_REGION}/g; s/#_TITLE/${_TITLE}/g' doc.json > doc.production.json"
       ]
     },
     {
@@ -195,7 +196,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run services update ${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --platform=managed  --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_DOMAIN}.${_SERVICE}.sustainer.network|ESP_ARGS=--rollout_strategy=managed,${_ESP_OPTIONS}\""
+        "gcloud beta run services update ${_SERVICE}-${_DOMAIN}-${_ACTION}-${_TYPE} --platform=managed  --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=\"^|^ENDPOINTS_SERVICE_NAME=${_ACTION}.${_DOMAIN}.${_SERVICE}.${_NETWORK}|ESP_ARGS=--rollout_strategy=managed,${_ESP_OPTIONS}\""
       ]
     },
     {
